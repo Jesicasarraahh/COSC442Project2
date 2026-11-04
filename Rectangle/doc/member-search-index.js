@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"<Unnamed>","c":"Rectangle","l":"getArea()"},{"p":"<Unnamed>","c":"Rectangle","l":"getDiagonal()"},{"p":"<Unnamed>","c":"Point","l":"x"},{"p":"<Unnamed>","c":"Point","l":"y"}];updateSearchResults();
