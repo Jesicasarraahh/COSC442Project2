@@ -109,6 +109,18 @@ public class VendingMachineTest {
         assertNull(vm.getItem("D"));
     }
 
+    @Test 
+    void testRemoveItemWithInvalidCode() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+       
+
+        //assert
+        assertThrows(VendingMachineException.class, () -> {
+            vm.removeItem("G");
+        });
+    }
+
     @Test
     void testReturnChange() {
 
