@@ -81,6 +81,17 @@ public class VendingMachineTest {
 
     @Test
     void testRemoveItem() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem noodles = new VendingMachineItem("Cup Noodles", 2.50);
+        vm.addItem(noodles, "D");
+
+        //act
+        VendingMachineItem removedItem = vm.removeItem("D");
+
+        //assert
+        assertSame(noodles, removedItem);
+        assertNull(vm.getItem("D"));
 
     }
 
