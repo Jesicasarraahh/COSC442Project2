@@ -69,6 +69,16 @@ public class VendingMachineTest {
 
     @Test
     void testGetItem() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem chocolate = new VendingMachineItem("MandMs", 1.50);
+        vm.addItem(chocolate, "B");
+        //act
+        VendingMachineItem retrievedItem = vm.getItem("B");
+
+        //assert
+        assertSame(chocolate, retrievedItem);
+        assertSame(chocolate, vm.getItem("B"));
 
     }
 
