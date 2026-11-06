@@ -48,7 +48,7 @@ public class VendingMachineItem {
 	 *         Postcondition: The actual price of the item is returned
 	 */
 	public double getPrice() {
-		//injected fault for test validation
-		return price + 5.67;
+		
+		return price;
 	}
 }

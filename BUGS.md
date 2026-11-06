@@ -77,3 +77,5 @@ I  changed getPrice() in VendingMachineItem.java from return price to return pri
 ### Why the tests detected the fault
 The price tests compared the returned price with the price supplied when creating the item. Adding $5.67 caused those values to differ.The make purchase tests detected the fault because the $1.25 popcorn reported a price of $6.92. Balances that should have covered the original price were no longer sufficient, so the purchases returned false.The return change test expected $1.75 after purchasing popcorn with $3.00. Since the purchase failed, the full $3.00 remained and was returned instead.
 
+### The Correction I made
+I have removed the injected fault return price + 5.67 and corrected it back to return price. Then i ran all three tests together again and they all passed.
