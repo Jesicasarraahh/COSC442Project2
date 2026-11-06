@@ -71,6 +71,16 @@ public class VendingMachineTest {
 
     @Test
     void testInsertMoney() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        //act
+        vm.insertMoney(0.50);
+        //assert
+        assertEquals(0.50, vm.getBalance(), 0.001);
+        //act
+        vm.insertMoney(2.50);
+        //assert
+        assertEquals(3.00, vm.getBalance(), 0.001);
 
     }
 
