@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VendingMachineTest {
 
@@ -64,6 +65,14 @@ public class VendingMachineTest {
 
     @Test
     void testGetBalance() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        vm.insertMoney(3.00);
+        //act
+        double balance = vm.getBalance();
+        //assert
+        assertEquals(3.00, balance, 0.001);
+        assertEquals(3.00, vm.getBalance(), 0.001);
 
     }
 
@@ -150,6 +159,18 @@ public class VendingMachineTest {
     }
     @Test
     void testMakePurchase() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem popcorn = new VendingMachineItem("Popcorn", 1.25);
+        vm.addItem(popcorn, "C");
+        vm.insertMoney(3.00);
+        //act
+        boolean purchased = vm.makePurchase("C");
+        //assert
+        assertTrue(purchased);
+        assertNull(vm.getItem("C"));
+        assertEquals(1.75, vm.getBalance(), 0.001);
+
 
     }
 
