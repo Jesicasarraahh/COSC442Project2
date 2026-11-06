@@ -190,6 +190,34 @@ public class VendingMachineTest {
         assertEquals(1.00, vm.getBalance(), 0.001);
     }
 
+    @Test 
+    void testMakePurchaseFromEmptySlot() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        vm.insertMoney(3.00);
+        //act
+        boolean purchased = vm.makePurchase("D");
+        //assert
+        assertFalse(purchased);
+        assertNull(vm.getItem("D"));
+        assertEquals(3.00, vm.getBalance(), 0.001);
+    }
+
+    @Test 
+    void testMakePurchaseWithAbovePrice() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem popcorn = new VendingMachineItem("Popcorn", 1.25);
+        vm.addItem(popcorn, "C");
+        vm.insertMoney(1.26);
+        //act
+        boolean purchased = vm.makePurchase("C");
+        //assert
+        assertTrue(purchased);
+        assertNull(vm.getItem("C"));
+        assertEquals(0.01, vm.getBalance(), 0.001);
+    }
+
     @Test
     void testRemoveItem() {
         //arrange
