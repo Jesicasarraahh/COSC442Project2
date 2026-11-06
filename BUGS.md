@@ -27,3 +27,30 @@ The loop now only accesses indexes 0 through 3.
 
 ### Verification
 I reran testVendingMachine() after the correction, and it passed. 
+
+## Bug 2: Valid money amounts below $1 were rejected
+
+### Observed failure
+testInsertMoney() failed when inserting $0.50. The method threw a VendingMachineException before the balance assertion even ran. 
+
+### Test that exposed the fault
+testInsertMoney() in VendingMachineTest.java.
+
+### Source-code fault
+The insertMoney() method had amount < 1 and that threw an exception because it rejected any amount below $1; however positive amounts below $1 are valid according to the Javadocs.
+
+### How I diagnosed the fault
+I placed a breakpoint on the condition inside insertMoney() and debugged testInsertMoney().
+
+The Debug Console showed:
+- amount was 0.50.
+- amount < 1 was true.
+- amount < 0 was false.
+
+This showed that the condition rejected a valid amount because it compared the amount with 1 instead of 0.
+
+### Correction
+I changed the condition from amount < 1 to amount < 0. 
+
+### Verification
+I reran testInsertMoney(), and it passed. 
