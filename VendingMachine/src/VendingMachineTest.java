@@ -82,6 +82,26 @@ public class VendingMachineTest {
 
     }
 
+    @Test 
+    void testGetItemFromEmptySlot() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        //act
+        VendingMachineItem item = vm.getItem("B");
+        //assert
+        assertNull(item);
+    }
+
+    @Test 
+    void testGetItemWithInvalidCode() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        //assert
+        assertThrows(VendingMachineException.class, () -> {
+            vm.getItem("H");
+        });
+    }
+
     @Test
     void testInsertMoney() {
         //arrange
