@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class VendingMachineTest {
 
@@ -16,6 +17,15 @@ public class VendingMachineTest {
     }
     @Test
     void testAddItem() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem drink = new VendingMachineItem("drink", 2.00);
+
+        //act
+        vm.addItem(drink, "A");
+
+        //assert
+        assertSame(drink, vm.getItem("A"));
 
     }
 
