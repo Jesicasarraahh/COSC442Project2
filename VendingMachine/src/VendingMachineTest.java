@@ -94,6 +94,20 @@ public class VendingMachineTest {
         assertNull(vm.getItem("D"));
 
     }
+    @Test 
+    void testRemoveItemFromEmptySlot() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem noodles = new VendingMachineItem("Cup Noodles", 2.50);
+        vm.addItem(noodles, "D");
+        vm.removeItem("D");
+
+        //assert
+        assertThrows(VendingMachineException.class, () -> {
+            vm.removeItem("D");
+        });
+        assertNull(vm.getItem("D"));
+    }
 
     @Test
     void testReturnChange() {
