@@ -262,6 +262,20 @@ public class VendingMachineTest {
 
     @Test
     void testReturnChange() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem popcorn = new VendingMachineItem("Popcorn", 1.25);
+        vm.addItem(popcorn, "C");
+        vm.insertMoney(3.00);
+        vm.makePurchase("C");
+        //act
+        double change = vm.returnChange();
+        //assert
+        assertEquals(1.75, change, 0.001);
+        assertEquals(0.00, vm.getBalance(), 0.001);
+        //requesting change when balance is 0
+        assertEquals(0.00, vm.returnChange(), 0.001);
+        assertEquals(0.00, vm.getBalance(), 0.001);
 
     }
 }
