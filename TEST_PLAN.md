@@ -10,3 +10,39 @@
 | returnChange() | The balance after successful purchase should be $1.75 and call returnChange() it should return that amount and change the balance to $0.0. | Nothing because this method did not take any arguments | After successful Popcorn purchase, call returnChange() to receive $1.75. Call it again immediately; it should return $0.00, and the balance should remain zero. | The method’s specification says it returns the remaining balance and resets the balance to zero. Therefore, after the Popcorn purchase, it should return $1.75 and leave $0.00. An immediate second call should return $0.00, because the first call already refunded  all remaining money. | testReturnChange() | |
 | getName() | Create an item named “donut” and call getName() and it should return “donut”. | Nothing because this method is not taking arguments. | Nothing | The getter’s postcondition says it returns the item’s actual stored name. Because the item was created with the name "donut", the expected result is exactly "donut". | testGetName() | |
 | getPrice() | Set the price of the item “donut” created to $3.0 and call getPrice() it should return $3.0. | If the price is negative the test will fail. | Create donut items with different prices and check it returns the prices when called. | The getter’s postcondition says it returns the item’s actual stored price. Because the donut was created with a price of $3.00, the expected result is 3.00. For other valid prices, the returned value should match the price supplied when creating each item. | testGetPrice() | |
+
+
+## Parameterized Test: Purchasing with Different Balances
+
+Related JUnit test: testMakePurchaseWithDifferentAmounts()
+
+This test uses @ParameterizedTest and @CsvSource to run the same purchase behavior with six different balances. Each run creates a new vending machine and adds a Popcorn item costing $1.25 to slot C.
+
+| Inserted Amount | Expected Purchase Result | Expected Remaining Balance | Expected Slot C |
+| --- | --- | --- | --- |
+| $0.00 | false | $0.00 | Still contains the popcorn |
+| $1.00 | false | $1.00 | Still contains the popcorn |
+| $1.24 | false | $1.24 | Still contains the popcorn |
+| $1.25 | true | $0.00 | Empty |
+| $1.26 | true | $0.01 | Empty |
+| $3.00 | true | $1.75 | Empty |
+
+### Why these values were selected
+
+I chose these specific values to test the values below, above and the actual price. Then 0.00 shows purchase was being tried without putting any money which case this returned false, then $1.0 returns an insufficient balance because that is below the price of the item. The $1.24, $1.25, and $1.26 cases check immediately below, exactly at, and immediately above the $1.25 price boundary. The $3.00 case checks a balance comfortably above the price.
+
+### Oracle / Expected Results
+
+The purchase specification says that a purchase succeeds when the selected slot contains an item and the balance is greater than or equal to the item's price.
+
+For balances below $1.25, makePurchase("C") should return false. The popcorn should remain in slot C, and the balance should remain unchanged.
+
+For balances equal to or above $1.25, makePurchase("C") should return true. Slot C should become empty, and the item's price should be subtracted from the balance.
+
+The expected remaining balances were calculated manually:
+
+- $1.25 - $1.25 = $0.00
+- $1.26 - $1.25 = $0.01
+- $3.00 - $1.25 = $1.75
+
+These expectations come from the purchase specification and manual calculations, rather than from what the program returned.
