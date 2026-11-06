@@ -59,6 +59,9 @@ public class VendingMachineTest {
         });
     }
 
+    
+    
+
     @Test
     void testGetBalance() {
 
@@ -84,6 +87,37 @@ public class VendingMachineTest {
 
     }
 
+    @Test 
+    void testInsertNegativeMoney() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        vm.insertMoney(3.00);
+        //assert
+        assertThrows(VendingMachineException.class, () -> {
+            vm.insertMoney(-1.00);
+        });
+        assertEquals(3.00, vm.getBalance(), 0.001);
+    }
+
+    @Test 
+    void testInsertZeroMoney() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        //act
+        vm.insertMoney(0.00);
+        //assert
+        assertEquals(0.00, vm.getBalance(), 0.001);
+    }
+
+    @Test 
+    void testInsertLessThanOneDollarMoney() {
+        //arrange
+        VendingMachine vm = new VendingMachine();
+        //act
+        vm.insertMoney(0.02);
+        //assert
+        assertEquals(0.02, vm.getBalance(), 0.001);
+    }
     @Test
     void testMakePurchase() {
 
