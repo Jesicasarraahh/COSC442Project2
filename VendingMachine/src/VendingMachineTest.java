@@ -2,10 +2,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VendingMachineTest {
 
-    @Test 
+    @Test
     void testVendingMachine() {
         VendingMachine vm = new VendingMachine();
         assertEquals(0.0, vm.getBalance(), 0.001);
@@ -15,18 +16,47 @@ public class VendingMachineTest {
         assertNull(vm.getItem("D"));
 
     }
+
     @Test
     void testAddItem() {
-        //arrange
+        // arrange
         VendingMachine vm = new VendingMachine();
         VendingMachineItem drink = new VendingMachineItem("drink", 2.00);
 
-        //act
+        // act
         vm.addItem(drink, "A");
 
-        //assert
+        // assert
         assertSame(drink, vm.getItem("A"));
 
+    }
+
+    @Test
+    void testAddItemToFilledSlot() {
+        // arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem drink = new VendingMachineItem("drink", 2.00);
+        VendingMachineItem chips = new VendingMachineItem("chips", 1.50);
+        vm.addItem(drink, "A");
+
+        // assert
+        assertThrows(VendingMachineException.class, () -> {
+            vm.addItem(chips, "A");
+        });
+        assertSame(drink, vm.getItem("A"));
+
+    }
+
+    @Test 
+    void testAddItemWithInvalidCode() {
+        // arrange
+        VendingMachine vm = new VendingMachine();
+        VendingMachineItem drink = new VendingMachineItem("drink", 2.00);
+
+        // assert
+        assertThrows(VendingMachineException.class, () -> {
+            vm.addItem(drink, "G");
+        });
     }
 
     @Test
